@@ -1,0 +1,87 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.1/css/bulma.min.css">
+</head>
+
+<body>
+  <header><%- include('partials/header.ejs') -%></header>
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+
+
+        <table class="table">
+          <thead>
+            <tr>
+
+              <th>sessionName</th>
+              <th><abbr title="Played">sectionDescription</abbr></th>
+              <th><abbr title="Won">duration</abbr></th>
+              <th><abbr title="Drawn">isMaintask</abbr></th>
+              <th><abbr title="Lost">course</abbr></th>
+              <th><abbr title="Lost">Action</abbr></th>
+
+            </tr>
+          </thead>
+          <% sections.forEach(function(section){ %>
+            <tbody>
+
+              <tr>
+
+                <td>
+
+                  <strong>
+                    <%= section.sessionName %>
+                  </strong>
+                </td>
+                <td>
+                  <%= section.sectionDescription %>
+                </td>
+
+                <td>
+                  <%= section.duration %>
+                </td>
+                <td>
+                  <%= section.isMaintask %>
+                </td>
+                <td>
+                  <%= section.course.courseName %>
+                </td>
+                <td>
+
+                  <a href="/sections/update/:<%= section.id %>">
+                    <button class="button is-success">update</button>
+                  </a>
+
+                  <form action="/sections/delete" method="post">
+                    <input type="hidden" name="id" value="<%= section._id %>">
+                    <button class="button is-danger" onclick="confirmDelete(event)">delete</button>
+                  </form>
+
+
+                </td>
+
+              </tr>
+
+
+            </tbody>
+            <% }) %>
+        </table>
+
+
+      </div>
+    </div>
+  </section>
+  <footer></footer>
+  <script> function confirmDelete(event) {
+      if (!confirm("Are you sure you want to delete this section?")) {
+        event.preventDefault();
+      }
+    }</script>
+</body>
+
+</html>
